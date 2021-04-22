@@ -1,0 +1,44 @@
+{
+  "header": {
+    "appName": "MYW",
+    "authButton": {
+      "loginButton": "Login",
+      "registerButton": "Register",
+      "loginByFb": "Login with Facebook",
+      "noAccount": "Have no account? Register",
+      "haveAccount": "Already have an account? Login"
+    },
+    "authTitle": {
+      "login": "Login",
+      "register": "Register"
+    },
+    "authField": {
+      "emailLogin": "Email or Username",
+      "password": "Password",
+      "retypepassword": "Retype Password",
+      "username": "Username",
+      "fullname": "Fullname",
+      "email": "Email"
+    }
+  },
+  "toolTip": {
+    "toogleMode": "Light/Dark",
+    "chooseLanguage": "Choose Language",
+    "userAction": "User Info"
+  },
+  "notiStack": {
+    "loginSuccess": "Login successfully!!! ✨",
+    "registerSuccess": "Register successfully!!! 🎉",
+    "logoutSuccess": "Log out successfully!!! 🎈",
+    "hasLogin": "You logined, redirect to home 🎇"
+  },
+  "footer": {
+    "contact": "Contact me",
+    "address": "Ward 14, District 8, Ho Chi Minh City",
+    "email": "davidnguyendung71@gmail.com",
+    "phone": "0704635376",
+    "socialMedia": "Social media",
+    "coppyRight": "© 2021 Nguyễn Trí Dũng, All Rights Reserved"
+  }
+
+}
