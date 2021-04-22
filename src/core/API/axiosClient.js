@@ -38,7 +38,7 @@ axiosClient.interceptors.response.use(
   },
   function (error) {
     //parse error
-    const { config, status, data } = error.response;
+    // const { config, status, data } = error.response;
     const URLS = {}; // link URLS apply this handle err
     return Promise.reject(error);
   }

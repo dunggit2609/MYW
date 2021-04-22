@@ -2,7 +2,6 @@
 import { Menu, MenuItem } from "@material-ui/core";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 SelectBox.propTypes = {
   handleItemSelected: PropTypes.func.isRequired,
 };
@@ -17,7 +16,6 @@ export default function SelectBox(props) {
     selected,
     displayPos,
   } = props;
-  const { t } = useTranslation();
   const lng = localStorage.getItem("language");
   const [selectedItem, setselectedItem] = useState(isOpen);
 

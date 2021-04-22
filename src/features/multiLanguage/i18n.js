@@ -5,13 +5,18 @@ import vi from "../../assets/translations/vi.json";
 
 const allowedLanguages = ["en", "vi"];
 
-const defaultLng = "vi";
+const defaultLng = "en";
 let lng = defaultLng;
 
 const storageLanguage = localStorage.getItem("language");
+if (!storageLanguage) {
+  localStorage.setItem("language", "en");
+
+}
 if (storageLanguage && allowedLanguages.indexOf(storageLanguage) > -1) {
   lng = storageLanguage;
 }
+
 i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false }, // React already does escaping
   lng: lng, // language to use
