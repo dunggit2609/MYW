@@ -63,6 +63,7 @@
     "pageTitle": "💻  Khu vực làm việc của bạn",
     "filterArea": "Bộ lọc",
     "noWorkSpace": "Bạn không có work space nào. Hãy thêm mới nhé 👇",
+    "noWorkSpaceJoined": "Bạn không tham gia work space nào !!!",
     "addNewButton": "Thêm mới",
     "dialog": {
       "inputFieldLabel": "Tên của work space",

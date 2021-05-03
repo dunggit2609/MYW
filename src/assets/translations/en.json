@@ -63,6 +63,7 @@
     "pageTitle": "💻  Your Work Spaces",
     "filterArea": "Filter",
     "noWorkSpace": "You do not have any work spaces. Please add new one 👇",
+    "noWorkSpaceJoined": "You do not join any work spaces !!!",
     "addNewButton": "Add new",
     "dialog": {
       "inputFieldLabel": "Work space's name",
