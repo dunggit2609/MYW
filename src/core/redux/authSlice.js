@@ -5,22 +5,28 @@ import authApi from "core/API/authApi";
 export const registerSlice = createAsyncThunk(
   "auth/register",
   async (payload) => {
-    localStorage.removeItem(AUTH.TOKEN_KEY);
     const data = await authApi.register(payload);
-    localStorage.setItem(AUTH.TOKEN_KEY, data.jwt);
-    localStorage.setItem(AUTH.STORAGE_KEY, JSON.stringify(data.user));
-
+    localStorage.setItem(AUTH.TOKEN_KEY, data.user.token);
     return data.user;
   }
 );
-export const loginSlice = createAsyncThunk(
-  "auth/login",
+export const loginGetTokenSlice = createAsyncThunk(
+  "auth/loginToken",
   async (payload) => {
-    localStorage.removeItem(AUTH.TOKEN_KEY);
-    const data = await authApi.login(payload);
-    localStorage.setItem(AUTH.TOKEN_KEY, data.jwt);
-    localStorage.setItem(AUTH.STORAGE_KEY, JSON.stringify(data.user));
+    const data = await authApi.loginGetToken(payload);
+    if (!!data) {
+      localStorage.setItem(AUTH.TOKEN_KEY, data.user.token);
+    }
 
+    //save expired at
+  }
+);
+export const loginGetUserInforSlice = createAsyncThunk(
+  "auth/loginUser",
+  async () => {
+    const data = await authApi.loginGetUserInfo();
+    
+    //save expired at
     return data.user;
   }
 );
@@ -35,11 +41,10 @@ const authSlice = createSlice({
     [registerSlice.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
-    [loginSlice.fulfilled]: (state, action) => {
-      state.current = action.payload // tam thoi
-    }
+    [loginGetUserInforSlice.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
   },
-  
 });
 
 const { reducer } = authSlice;

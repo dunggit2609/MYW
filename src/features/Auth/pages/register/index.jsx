@@ -14,7 +14,7 @@ function RegisterPage(props) {
   useEffect(() => {
     if (isAuth) {
       enqueueSnackbar(t("notiStack.hasLogin"), { variant: "success" });
-      setTimeout(() => history.push(_LIST_LINK.index), 1000);
+      setTimeout(() => history.push(_LIST_LINK.manageWork), 1000);
     }
   }, []);
 

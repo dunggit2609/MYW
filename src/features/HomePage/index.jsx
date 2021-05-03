@@ -1,13 +1,14 @@
 import { Container } from "@material-ui/core";
 import { featureData_En } from "assets/data/featureData-en";
 import { featureData_Vi } from "assets/data/featureData-vi";
+import { listLocalStorage } from "constant/config";
 import React, { useEffect, useState } from "react";
 import Introduction from "./components/Introduction";
 import ShowFeature from "./components/ShowFeature";
 import "./styles.scss";
 
 function HomePage(props) {
-  const curLng = localStorage.getItem("language");
+  const curLng = localStorage.getItem(listLocalStorage.language);
   const [featureData, setFeatureData] = useState([]);
   useEffect(() => {
     switch (curLng) {
@@ -21,7 +22,6 @@ function HomePage(props) {
         break;
     }
   }, []);
-  console.log(featureData);
   return (
     
     <Container maxWidth="xl" className="homePageBox">

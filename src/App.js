@@ -2,25 +2,28 @@ import { CircularProgress } from "@material-ui/core";
 import Footer from "components/Footer";
 import HamburgerNav from "components/hamburgerNav";
 import Header from "components/Header";
+import LoadingSpinner from "components/loadingSpinner";
 import NotFound from "components/NotFound";
 import PrivateRoute from "components/PrivateRoute";
-import { _LIST_LINK } from "constant/config";
+import AUTH from "constant/auth";
+import { _LIST_LINK, listPrivateLink} from "constant/config";
 import LoginPage from "features/Auth/pages/login";
 import RegisterPage from "features/Auth/pages/register";
 import ManageWork from "features/ManageWork";
 import React, { Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Route, Switch, useHistory, useLocation } from "react-router";
 import "./App.scss";
 import "./features/multiLanguage/i18n.js";
 
 function App() {
   const HomePage = React.lazy(() => import("./features/HomePage"));
   const routerLink = _LIST_LINK;
-  // const history = useHistory();
-  // const isLogin = localStorage.getItem(AUTH.TOKEN_KEY);
-  // if (!!isLogin) {
-  //   history.push(_LIST_LINK.manageWork);
-  // }
+  const history = useHistory();
+  const location = useLocation();
+  const isLogin = localStorage.getItem(AUTH.TOKEN_KEY);
+  if (!!isLogin && location.pathname === _LIST_LINK.index) {
+    history.push(_LIST_LINK.manageWork);
+  }
   return (
     <div className="App">
       <Suspense
@@ -39,12 +42,11 @@ function App() {
           <PrivateRoute
             path={routerLink.manageWork}
             component={ManageWork}
-            exact
           />
-          <Route path={routerLink.notFound} component={NotFound} />
           <Route component={NotFound} />
         </Switch>
-        <Footer/>
+        <Footer />
+        <LoadingSpinner />
       </Suspense>
       <HamburgerNav />
     </div>

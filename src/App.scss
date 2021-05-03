@@ -60,27 +60,30 @@ body {
   &--noMarginLeft {
     margin-left: 0 !important;
   }
-  &:hover::before {
-    left: 47%;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: none;
-    text-decoration: none !important;
-    bottom: -6px;
-    background-color: var(--color);
+  &--hoverBottomSpot {
+    &:hover::before {
+      left: 45%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: none;
+      text-decoration: none !important;
+      bottom: -6px;
+      background-color: var(--color);
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 0;
+      background-color: black;
+      transition: 0.25s;
+      background-color: var(--color);
+    }
   }
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 0;
-    background-color: black;
-    transition: 0.25s;
-    background-color: var(--color);
-  }
+  
 }
 
 .container {
@@ -169,18 +172,9 @@ body {
   background-color: transparent !important;
 }
 
-.registering {
+.authSubmitting {
   width: 100%;
-}
-
-.notFound {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  &__Text {
-    text-align: center;
-    font-size: 40px;
-  }
+  height: 20px;
 }
 
 img {
@@ -195,42 +189,33 @@ img {
   max-width: 100%;
   height: auto;
 }
+
 h4 {
   @include desktop {
     font-size: 3rem;
     line-height: 1.25;
   }
-}
-.introductionSection {
-  padding-top: 100px;
-  position: relative;
-  margin-right: 15vw;
-  margin-left: 15vw;
-  text-align: center;
+  @include tablet {
+    font-size: 25px !important;
+    font-weight: bold !important;
+  }
+
+  @include mobile {
+    font-size: 15px !important;
+    &.MuiTypography-root {
+      font-weight: bold !important;
+    }
+  }
 }
 
-.textArea {
-  @include desktop {
-    margin-top: 10vh !important;
-  }
-  @include tablet {
-    margin-top: 5vh !important;
-    font-size: small !important;
-  }
+.displayCenterByFlex {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
-.imgArea {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @include mdW {
-    display: none;
-  }
-}
-.showFeatureSection {
-  margin-left: 15vw;
-  margin-right: 15vw;
-  margin-top: 5vh;
-  margin-bottom: 2vh;
-  transform: translateY(0);
-  transition-delay: .1s;
+
+.displayColumnFlex {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
 }

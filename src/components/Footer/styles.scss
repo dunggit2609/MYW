@@ -1,9 +1,10 @@
 .footerContainer {
   text-align: center;
   padding-bottom: 5vh !important;
-  margin-top: 10vh !important;
+  
   width: 100%;
   height: auto;
+  position: absolute;
   background: var(--backGroundColorCode);
 }
 .columnArea {

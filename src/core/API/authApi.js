@@ -1,17 +1,20 @@
 import axiosClient from "./axiosClient";
 
+const authURL = "/auth";
 const authApi = {
-    register(data) {
-        const url = '/auth/local/register';
-        return axiosClient.post(url, data);
-    },
-    login(data) {
-        
-        const url = '/auth/local';
-        return axiosClient.post(url, data);
-    }
-
-    //api getToken, api get user
+  register(data) {
+    const uri = `${authURL}/register`;
+    return axiosClient.post(uri, data);
+  },
+  loginGetToken(data) {
+    const uri = `${authURL}/login`;
+    return axiosClient.post(uri, data);
+  },
+  loginGetUserInfo() {
+    const uri = `${authURL}/login`;
+    return axiosClient.get(uri);
+  }
+  //api getToken, api get user
 };
 
 export default authApi;

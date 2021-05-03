@@ -29,7 +29,7 @@ function ToggleMode(props) {
   return (
     <div>
       <Tooltip title={t("toolTip.toogleMode")} placement="bottom">
-      <ButtonBase className="btn" onClick={handleClickToggle}>
+      <ButtonBase className="btn btn--hoverBottomSpot " onClick={handleClickToggle}>
         <Brightness4Outlined />
       </ButtonBase>
       </Tooltip>

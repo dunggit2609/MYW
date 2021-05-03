@@ -9,11 +9,12 @@ import "./features/multiLanguage/i18n.js";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <SnackbarProvider anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+        <SnackbarProvider autoHideDuration={3000} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
           <App useSuspense={true} />
         </SnackbarProvider>
       </BrowserRouter>

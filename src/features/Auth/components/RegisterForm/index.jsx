@@ -8,13 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import { VpnKeyRounded } from "@material-ui/icons";
+import DialogSlide from "components/DialogSlide";
 import InputField from "components/FormControl/InputField";
 import PasswordField from "components/FormControl/PasswordField";
 import AUTH from "constant/auth";
 import { _LIST_LINK } from "constant/config";
 import { loadCSS } from "fg-loadcss";
+import { UseSpinnerLoading } from "hooks/useSpinnerLoading";
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
@@ -30,30 +32,32 @@ function RegisterForm(props) {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .required("Please enter your email address.")
-      .email("Your email is wrong format"),
-    username: yup.string().required("Please enter Username"),
-    fullname: yup.string().required("Please enter your Full Name"),
+      .required(t("yupValidate.emailRequired"))
+      .email(t("yupValidate.emailWrongFormat")),
+    phone: yup
+      .string()
+      .required(t("yupValidate.phoneRequired"))
+      .matches(
+        /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+        t("yupValidate.phoneWrongFormat")
+      ),
+    fullname: yup.string().required(t("yupValidate.fullnameRequired")),
     retypepassword: yup
       .string()
-      .required("Please retype your Password")
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
-        "Password has minimum 8 characters, at least one uppercase letter,one lower letter,one number"
-      )
-      .oneOf([yup.ref("password")], "Retype Password dose not matchDungf2609"),
+      .required(t("yupValidate.retypePassWordRequired"))
+      .oneOf([yup.ref("password")], t("yupValidate.retypePassWordNotMatch")),
     password: yup
       .string()
-      .required("Please enter your Password")
+      .required(t("yupValidate.passwordRequired"))
       .matches(
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
-        "Password has minimum 8 characters, at leas tone uppercase letter,one lower letter,one number"
+        t("yupValidate.passWordWrongFormat")
       ),
   });
   const form = useForm({
     defaultValues: {
       email: "",
-      username: "",
+      phone: "",
       fullname: "",
       password: "",
       retypepassword: "",
@@ -61,9 +65,19 @@ function RegisterForm(props) {
     resolver: yupResolver(schema),
   });
   const { isSubmitting } = form.formState;
+  const [openDialog, setOpenDialog] = useState(false);
+  const { handleDisplaySpinner } = UseSpinnerLoading();
+
+  const handleLoginFBClick = () => {
+    setOpenDialog(true);
+  };
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
   const handleOnSubmit = async (values) => {
     const { OnSubmit } = props;
     localStorage.removeItem(AUTH.TOKEN_KEY);
+    delete values.retypepassword;
     if (OnSubmit) {
       await OnSubmit(values);
     }
@@ -82,7 +96,7 @@ function RegisterForm(props) {
   return (
     <div className="container">
       <Container maxWidth="xs" className="mainBox">
-        <div className="registering">
+        <div className="authSubmitting">
           {isSubmitting && <LinearProgress color="secondary" />}
         </div>
 
@@ -95,39 +109,39 @@ function RegisterForm(props) {
           variant="h5"
           className="mainBox__title--auth"
         >
-          {t("header.authTitle.register")}
+          {t("auth.authTitle.register")}
         </Typography>
         <form onSubmit={form.handleSubmit(handleOnSubmit)}>
           <InputField
             name="email"
-            label={t("header.authField.email")}
+            label={t("auth.authField.email")}
             // placeholder="Please enter email"
             form={form}
             disabled={false}
           />
           <InputField
-            name="username"
-            label={t("header.authField.username")}
+            name="phone"
+            label={t("auth.authField.phone")}
             form={form}
             disabled={false}
           />
           <InputField
             name="fullname"
-            label={t("header.authField.fullname")}
+            label={t("auth.authField.fullname")}
             form={form}
             disabled={false}
           />
 
           <PasswordField
             name="password"
-            label={t("header.authField.password")}
+            label={t("auth.authField.password")}
             form={form}
             disable={false}
           />
 
           <PasswordField
             name="retypepassword"
-            label={t("header.authField.retypepassword")}
+            label={t("auth.authField.retypepassword")}
             form={form}
             disable={false}
           />
@@ -139,7 +153,7 @@ function RegisterForm(props) {
             fullWidth
             type="submit"
           >
-            {t("header.authButton.registerButton")}
+            {t("auth.authButton.registerButton")}
           </Button>
         </form>
         <div className="mainBox__buttonArea">
@@ -150,13 +164,23 @@ function RegisterForm(props) {
             variant="contained"
             fullWidth
           >
-            <span>{t("header.authButton.haveAccount")}</span>
+            <span>{t("auth.authButton.haveAccount")}</span>
           </Button>
-          <Button className="mainBox__iconSign" variant="contained" fullWidth>
+          <Button
+            onClick={handleLoginFBClick}
+            className="mainBox__iconSign"
+            variant="contained"
+            fullWidth
+          >
             <Icon className="mainBox__icon fab fa-facebook" color="secondary" />
-            <span>{t("header.authButton.loginByFb")}</span>
+            <span>{t("auth.authButton.loginByFb")}</span>
           </Button>
         </div>
+        <DialogSlide
+          openStatus={openDialog}
+          handleCloseDialog={handleDialogClose}
+          dialogTitle={t("auth.dialog.dialogLoginFb")}
+        />
       </Container>
     </div>
   );

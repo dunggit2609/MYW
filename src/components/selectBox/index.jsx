@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import { Menu, MenuItem } from "@material-ui/core";
+import { listLocalStorage } from "constant/config";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 SelectBox.propTypes = {
@@ -8,15 +9,16 @@ SelectBox.propTypes = {
 
 export default function SelectBox(props) {
   const {
-    listValue,
-    handleItemSelected,
-    isOpen,
-    handleSelectBoxClose,
-    menuPos,
-    selected,
-    displayPos,
+    listValue, // danh sách các value trong ô select
+    handleItemSelected, //handle việc chọn item nào
+    isOpen, //status xem box mở hay đóng
+    handleSelectBoxClose, 
+    menuPos, //vị trí của menu
+    selected, // này là highlight xem value nào đang được chọn
+    displayPos, 
+    typeOfSelected // check xem selected gia tri của trường nào
   } = props;
-  const lng = localStorage.getItem("language");
+  
   const [selectedItem, setselectedItem] = useState(isOpen);
 
   useEffect(() => {
@@ -28,13 +30,13 @@ export default function SelectBox(props) {
     handleSelectBoxClose();
   };
 
-  const handleClickItem = (event) => {
+  const handleClickItem = (value) => {
     setselectedItem(null);
     if (!handleItemSelected) {
       return;
     }
-    if (event) {
-      handleItemSelected(event.target.firstChild.data);
+    if (value) {
+      handleItemSelected(value);
     }
   };
   return (
@@ -53,8 +55,8 @@ export default function SelectBox(props) {
           return (
             <MenuItem
               key={value}
-              selected={!!selected && value === lng}
-              onClick={handleClickItem}
+              selected={!!selected && value === typeOfSelected}
+              onClick={() => handleClickItem(value)}
             >
               {value}
             </MenuItem>

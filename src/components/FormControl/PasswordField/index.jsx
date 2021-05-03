@@ -11,6 +11,9 @@ import PropTypes from "prop-types";
 import { React, useState } from "react";
 import { Controller } from "react-hook-form";
 
+//handle password field, không dùng chung với input field 
+//vì field này là mật khẩu nên sẽ có nút ẩn hiện 
+
 PasswordField.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,

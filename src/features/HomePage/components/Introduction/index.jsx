@@ -1,15 +1,15 @@
 import { Button, Grid, Typography } from "@material-ui/core";
+import { introductionData_En } from "assets/data/introductionData-en";
+import { introductionData_Vi } from "assets/data/introductionData-vi";
+import { listLocalStorage, _LIST_LINK } from "constant/config";
 import React, { useEffect, useState } from "react";
-
 import { Link as RouterLink } from "react-router-dom";
 import "./styles.scss";
-import { _LIST_LINK } from "constant/config";
-import { introductionData_Vi } from "assets/data/introductionData-vi";
-import { introductionData_En } from "assets/data/introductionData-en";
+
 Introduction.propTypes = {};
 
 function Introduction(props) {
-  const curLng = localStorage.getItem("language");
+  const curLng = localStorage.getItem(listLocalStorage.language);
   const [data, setData] = useState({});
   useEffect(() => {
     switch (curLng) {
@@ -33,13 +33,15 @@ function Introduction(props) {
             component={RouterLink}
             to={_LIST_LINK.register}
             color="secondary"
-            className="btn btn--red btn--noMarginLeft btn--fullSize"
+            className="btn btn--hoverBottomSpot  btn--red btn--noMarginLeft btn--fullSize"
           >
             {data.button}
           </Button>
         </Grid>
         <Grid item md={4} className="imgArea">
           <img
+            decoding="async"
+            loading="lazy"
             src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/spirit/hero/6a3ccd8e5c9a0e8ebea4235d12da6b24/hero.png"
             width="931"
             height="1205"
@@ -47,9 +49,9 @@ function Introduction(props) {
             alt=""
           />
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <Typography variant="h4">{data.feature}</Typography>
-          <Typography >{data.subFeature}</Typography>
+          <Typography>{data.subFeature}</Typography>
         </Grid>
       </Grid>
     </div>

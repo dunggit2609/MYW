@@ -1,3 +1,4 @@
+import { listLocalStorage } from "constant/config";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import en from "../../assets/translations/en.json";
@@ -8,10 +9,9 @@ const allowedLanguages = ["en", "vi"];
 const defaultLng = "en";
 let lng = defaultLng;
 
-const storageLanguage = localStorage.getItem("language");
+const storageLanguage = localStorage.getItem(listLocalStorage.language);
 if (!storageLanguage) {
-  localStorage.setItem("language", "en");
-
+  localStorage.setItem(listLocalStorage.language, "en");
 }
 if (storageLanguage && allowedLanguages.indexOf(storageLanguage) > -1) {
   lng = storageLanguage;
