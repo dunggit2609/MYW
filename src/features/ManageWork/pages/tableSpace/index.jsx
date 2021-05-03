@@ -7,7 +7,7 @@ TableSpace.propTypes = {
 function TableSpace(props) {
     return (
         <div className="myTableSpace">
-            This feature is developing. Please go back you work spaces and use it nex time !!!
+            This feature is developing. Please go back your work spaces and use it next time !!!
         </div>
     );
 }
