@@ -11,7 +11,7 @@ const authApi = {
     return axiosClient.post(uri, data);
   },
   loginGetUserInfo() {
-    const uri = `${authURL}/login`;
+    const uri = `/users`;
     return axiosClient.get(uri);
   }
   //api getToken, api get user

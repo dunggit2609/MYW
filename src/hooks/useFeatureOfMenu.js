@@ -3,6 +3,7 @@ import { listLocalStorage, _LIST_LINK } from "constant/config";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 
 export const useFeatureOfMenu = () => {
@@ -15,7 +16,10 @@ export const useFeatureOfMenu = () => {
   const isDisplayAuth = location.pathname === _LIST_LINK.index ? true : false;
   const isDisplayHeader =
     location.pathname !== _LIST_LINK.notFound ? true : false;
-  const isLogin = !!localStorage.getItem(AUTH.TOKEN_KEY);
+    const user = useSelector((state) => state.auth.current);
+    const isLogin =
+      !!localStorage.getItem(AUTH.TOKEN_KEY) &&
+      !!(Object.keys(user).length !== 0);
 
   const handleLanguageBoxClick = (event) => {
     if (!isLanguageOpen) {

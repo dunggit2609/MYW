@@ -23,20 +23,16 @@ function HomePage(props) {
     }
   }, []);
   return (
-    
     <Container maxWidth="xl" className="homePageBox">
       <section className="introduction">
-      <Introduction />
+        <Introduction />
       </section>
       <section className="feature">
-        {featureData.map((value) => 
-        <ShowFeature key={value.feature} data={value} />
-      )}
-      
-        </section>
-       
-      </Container>
-   
+        {featureData.map((value) => (
+          <ShowFeature key={value.feature} data={value} />
+        ))}
+      </section>
+    </Container>
   );
 }
 

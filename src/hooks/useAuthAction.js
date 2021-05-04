@@ -1,6 +1,10 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { _LIST_LINK } from "constant/config";
-import { loginGetTokenSlice, loginGetUserInforSlice, registerSlice } from "core/redux/authSlice";
+import {
+  loginGetTokenSlice,
+  loginGetUserInforSlice,
+  registerSlice,
+} from "core/redux/authSlice";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -14,21 +18,13 @@ export const useAuthAction = (authType) => {
   const OnSubmit = async (values) => {
     try {
       const data = { ...values };
-      const payload =
-        authType === "login"
-          ? {
-            identifier: data.email,
-            password: data.password,
-          }
-          : authType === "register"
-            ? data
-            : "";
+      const payload = data;
       const action =
         authType === "login"
           ? loginGetTokenSlice(payload)
           : authType === "register"
-            ? registerSlice(payload)
-            : "";
+          ? registerSlice(payload)
+          : "";
       if (authType === "register") {
         const resultAction = await dispatch(action);
         const user = unwrapResult(resultAction);
@@ -36,8 +32,8 @@ export const useAuthAction = (authType) => {
           authType === "login"
             ? t("notiStack.loginSuccess")
             : authType === "register"
-              ? t("notiStack.registerSuccess")
-              : "";
+            ? t("notiStack.registerSuccess")
+            : "";
         enqueueSnackbar(msg, { variant: "success" });
         history.push(_LIST_LINK.manageWork);
       }
@@ -47,21 +43,19 @@ export const useAuthAction = (authType) => {
         const getUserAction = loginGetUserInforSlice();
         const getUserInfor = await dispatch(getUserAction);
         const logginedUSer = unwrapResult(getUserInfor);
-          const msg =
+        const msg =
           authType === "login"
             ? t("notiStack.loginSuccess")
             : authType === "register"
-              ? t("notiStack.registerSuccess")
-              : "";
+            ? t("notiStack.registerSuccess")
+            : "";
         enqueueSnackbar(msg, { variant: "success" });
         history.push(_LIST_LINK.manageWork);
-        
-        
       }
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };
 
-  return {OnSubmit};
+  return { OnSubmit };
 };

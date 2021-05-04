@@ -6,11 +6,12 @@ import LoadingSpinner from "components/loadingSpinner";
 import NotFound from "components/NotFound";
 import PrivateRoute from "components/PrivateRoute";
 import AUTH from "constant/auth";
-import { _LIST_LINK, listPrivateLink} from "constant/config";
+import { _LIST_LINK, listPrivateLink } from "constant/config";
 import LoginPage from "features/Auth/pages/login";
 import RegisterPage from "features/Auth/pages/register";
 import ManageWork from "features/ManageWork";
 import React, { Suspense } from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route, Switch, useHistory, useLocation } from "react-router";
 import "./App.scss";
 import "./features/multiLanguage/i18n.js";
@@ -20,8 +21,11 @@ function App() {
   const routerLink = _LIST_LINK;
   const history = useHistory();
   const location = useLocation();
-  const isLogin = localStorage.getItem(AUTH.TOKEN_KEY);
-  if (!!isLogin && location.pathname === _LIST_LINK.index) {
+  const user = useSelector((state) => state.auth.current);
+  const isLogin =
+    !!localStorage.getItem(AUTH.TOKEN_KEY) &&
+    !!(Object.keys(user).length !== 0);
+  if (isLogin && location.pathname === _LIST_LINK.index) {
     history.push(_LIST_LINK.manageWork);
   }
   return (
@@ -33,16 +37,13 @@ function App() {
           </div>
         }
       >
-        <Header/>
+        <Header />
         <Switch>
           <Redirect from={routerLink.home} to={routerLink.index} exact />
           <Route path="/" component={HomePage} exact></Route>
           <Route path={routerLink.register} component={RegisterPage} exact />
           <Route path={routerLink.login} component={LoginPage} exact />
-          <PrivateRoute
-            path={routerLink.manageWork}
-            component={ManageWork}
-          />
+          <PrivateRoute path={routerLink.manageWork} component={ManageWork} />
           <Route component={NotFound} />
         </Switch>
         <Footer />

@@ -54,7 +54,6 @@ function LoginForm(props) {
     },
     resolver: yupResolver(schema),
   });
-  const { handleDisplaySpinner } = UseSpinnerLoading();
   const { isSubmitting } = form.formState;
   const handleOnSubmit = async (values) => {
     const { OnSubmit } = props;
