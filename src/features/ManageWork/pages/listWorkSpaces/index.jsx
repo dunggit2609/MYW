@@ -51,7 +51,13 @@ function ListWorkSpaces(props) {
                 ))}
                 {isHavePermissionAddNew && (
                   <>
-                    <Grid item xs={12} className="displayCenterByFlex">
+                    <Grid
+                      item
+                      lg={3}
+                      md={4}
+                      xs={6}
+                      className="displayCenterByFlex"
+                    >
                       <ButtonBase
                         className="displayColumnFlex btn btn--hoverBottomSpot"
                         onClick={handleAddNewClick}

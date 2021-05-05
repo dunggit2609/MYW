@@ -26,12 +26,9 @@ let refreshTokenRequest = null;
 const configToken = async () => {
   const now = new Date();
   const localExpiredTime = localStorage.getItem(AUTH.EXPIRED_TOKEN);
-  console.log("expiredToken", localExpiredTime);
-
   const expiredTime = new Date(localExpiredTime);
   const isTokenExpired =
     localExpiredTime !== null && now >= expiredTime ? true : false;
-  console.log("expired", isTokenExpired);
   if (isTokenExpired) {
     refreshTokenRequest = refreshTokenRequest
       ? refreshTokenRequest
@@ -44,7 +41,7 @@ const configToken = async () => {
     localStorage.setItem(AUTH.EXPIRED_TOKEN, newTimeExpired);
   }
   return;
-}
+};
 // Add a request interceptor
 axiosClient.interceptors.request.use(async (config) => {
   const customHeaders = {};
