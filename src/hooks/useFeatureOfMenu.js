@@ -67,6 +67,7 @@ export const useFeatureOfMenu = () => {
       case "Log out":
         localStorage.removeItem(AUTH.STORAGE_KEY);
         localStorage.removeItem(AUTH.TOKEN_KEY);
+        localStorage.removeItem(AUTH.EXPIRED_TOKEN);
         history.push(_LIST_LINK.index);
         enqueueSnackbar(t("notiStack.logoutSuccess"), { variant: "success" });
         break;

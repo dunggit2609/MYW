@@ -20,6 +20,7 @@ export const loginGetTokenSlice = createAsyncThunk(
     if (!!data) {
       localStorage.setItem(AUTH.TOKEN_KEY, data.token);
       const timeExpired = new Date(`${data.timeExpired} +07:00 UTC`)
+
     localStorage.setItem(AUTH.EXPIRED_TOKEN, timeExpired.toString());
     }
 

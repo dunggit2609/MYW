@@ -1,7 +1,6 @@
 import axios from "axios";
 import AUTH from "constant/auth";
 
-
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -10,9 +9,42 @@ const axiosClient = axios.create({
   params: {},
 });
 
+const refreshToken = () => {
+  const customHeaders = {};
+  const header_token_name = AUTH.HEADER_TOKEN_NAME;
+  const accessToken = localStorage.getItem(AUTH.TOKEN_KEY);
+  customHeaders[header_token_name] = accessToken;
+  return new Promise((resolve) => {
+    resolve(
+      axios.get("https://myw-project.herokuapp.com/api/auth/token", {
+        headers: { ...customHeaders },
+      })
+    );
+  });
+};
+let refreshTokenRequest = null;
 // Add a request interceptor
 axiosClient.interceptors.request.use(async (config) => {
   const customHeaders = {};
+  const now = new Date();
+  const localExpiredTime = localStorage.getItem(AUTH.EXPIRED_TOKEN);
+  console.log("expiredToken", localExpiredTime);
+
+  const expiredTime = new Date(localExpiredTime);
+  const isTokenExpired =
+    localExpiredTime !== null && now >= expiredTime ? true : false;
+  console.log("expired", isTokenExpired);
+  if (isTokenExpired) {
+    refreshTokenRequest = refreshTokenRequest
+      ? refreshTokenRequest
+      : refreshToken();
+    const data = await refreshTokenRequest;
+    refreshTokenRequest = null;
+    const newToken = data.data.content.token;
+    const newTimeExpired = data.data.content.timeExpired;
+    localStorage.setItem(AUTH.TOKEN_KEY, newToken);
+    localStorage.setItem(AUTH.EXPIRED_TOKEN, newTimeExpired);
+  }
   const header_token_name = AUTH.HEADER_TOKEN_NAME;
   const accessToken = localStorage.getItem(AUTH.TOKEN_KEY);
   if (!!accessToken) {
