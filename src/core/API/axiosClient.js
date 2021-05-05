@@ -23,9 +23,7 @@ const refreshToken = () => {
   });
 };
 let refreshTokenRequest = null;
-// Add a request interceptor
-axiosClient.interceptors.request.use(async (config) => {
-  const customHeaders = {};
+const configToken = async () => {
   const now = new Date();
   const localExpiredTime = localStorage.getItem(AUTH.EXPIRED_TOKEN);
   console.log("expiredToken", localExpiredTime);
@@ -45,6 +43,12 @@ axiosClient.interceptors.request.use(async (config) => {
     localStorage.setItem(AUTH.TOKEN_KEY, newToken);
     localStorage.setItem(AUTH.EXPIRED_TOKEN, newTimeExpired);
   }
+  return;
+}
+// Add a request interceptor
+axiosClient.interceptors.request.use(async (config) => {
+  const customHeaders = {};
+  configToken();
   const header_token_name = AUTH.HEADER_TOKEN_NAME;
   const accessToken = localStorage.getItem(AUTH.TOKEN_KEY);
   if (!!accessToken) {
