@@ -1,7 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@material-ui/core";
 import InputField from "components/FormControl/InputField";
-import React from "react";
+import CustomizedRadios from "components/RadioButtonCustom";
+import { listWorkSpaceBackGround } from "constant/config";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
@@ -9,6 +11,12 @@ import "./styles.scss";
 
 function AddWorkSpaceForm(props) {
   const { handleCloseDialog, handleAddNew } = props;
+  const [backGroundChecked, setBackGroudChecked] = useState({
+    image: listWorkSpaceBackGround[0],
+  });
+  const handleChangeRadioButtonBackgroundWorkSpace = (value) => {
+    setBackGroudChecked({ image: value });
+  };
   const { t } = useTranslation();
   const schema = yup.object().shape({
     workSpace: yup.string().required("Please enter your work space's name ."),
@@ -22,7 +30,8 @@ function AddWorkSpaceForm(props) {
   const handleOnSubmit = (values) => {
     if (!handleAddNew) return;
     if (!handleCloseDialog) return;
-    handleAddNew(values);
+    console.log({ ...values, ...backGroundChecked });
+    handleAddNew({ ...values, ...backGroundChecked });
     handleCloseDialog();
     form.reset();
   };
@@ -34,6 +43,12 @@ function AddWorkSpaceForm(props) {
         label={t("work-space.dialog.inputFieldLabel")}
         form={form}
         disabled={false}
+      />
+
+      <CustomizedRadios
+        handleChangeRadioButtonBackgroundWorkSpace={
+          handleChangeRadioButtonBackgroundWorkSpace
+        }
       />
 
       <Button

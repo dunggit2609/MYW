@@ -219,3 +219,9 @@ h4 {
   flex-direction: column !important;
   justify-content: center !important;
 }
+
+.displayRowFlex {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-around !important;
+}

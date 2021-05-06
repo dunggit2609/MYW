@@ -29,9 +29,9 @@ export const useGetWorkSpacesData = () => {
   };
 
   const handleAddNewWorkSpaceClick = async (value) => {
-    const newWorkSpace = { name: value.workSpace };
+    const newWorkSpace = { name: value.workSpace, image: value.image };
     const newWorkSpaces = [...workSpaces, newWorkSpace];
-    const param = { name: value.workSpace };
+    const param = { name: value.workSpace, image: value.image };
     try {
       handleDisplaySpinner(true);
       const success = await manageWorkApi.postNewWorkSpace(param);

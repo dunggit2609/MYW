@@ -1,15 +1,21 @@
-import { ButtonBase, Grid, Typography } from "@material-ui/core";
+import {
+  ButtonBase,
+  FormControlLabel,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { AddOutlined } from "@material-ui/icons";
 import DialogSlide from "components/DialogSlide";
 import AddWorkSpaceForm from "features/ManageWork/components/AddWorkSpaceForm";
 import FilterArea from "features/ManageWork/components/filter";
 import WorkSpace from "features/ManageWork/components/work-space";
 import { useGetWorkSpacesData } from "hooks/useWorkSpacesData";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import "./styles.scss";
+import { listWorkSpaceBackGround } from "constant/config";
 ListWorkSpaces.propTypes = {};
 function ListWorkSpaces(props) {
   const {
@@ -17,6 +23,13 @@ function ListWorkSpaces(props) {
     handleFilter,
     handleAddNewWorkSpaceClick,
   } = useGetWorkSpacesData();
+  const listLinkImage = listWorkSpaceBackGround;
+  useEffect(() => {
+    listLinkImage.map((value, index) => {
+      let a = <img src={value} />;
+      return a;
+    });
+  }, []);
   const location = useLocation();
   const [openDialog, setOpenDialog] = useState(false);
   const { t } = useTranslation();
