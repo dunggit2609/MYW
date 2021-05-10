@@ -11,7 +11,6 @@ function LoginPage(props) {
   const { t } = useTranslation();
   const history = useHistory();
   const user = useSelector((state) => state.auth.current);
-  console.log((Object.keys(user).length !== 0));
   const isLogin =
     !!localStorage.getItem(AUTH.TOKEN_KEY) &&
     !!(Object.keys(user).length !== 0);

@@ -47,7 +47,6 @@ export function StyledRadio(props) {
   useEffect(() => {
     let radioButtonChecked = document.getElementById(radioBackgroundIdChecked);
     let radioButton = document.getElementById(radioBackgroundId);
-    console.log(radioButtonChecked);
     if (radioButtonChecked) {
       radioButtonChecked.style.backgroundImage = `url(${linkimg})`;
     }

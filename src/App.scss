@@ -220,6 +220,12 @@ h4 {
   justify-content: center !important;
 }
 
+.displaySpaceAroundColumnFlex {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+}
+
 .displayRowFlex {
   display: flex !important;
   flex-direction: row !important;

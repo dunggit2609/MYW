@@ -47,6 +47,7 @@ function LoginForm(props) {
         t("yupValidate.passWordWrongFormat")
       ),
   });
+  
   const form = useForm({
     defaultValues: {
       email: "",

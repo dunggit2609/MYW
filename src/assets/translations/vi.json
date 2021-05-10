@@ -67,12 +67,17 @@
     "addNewButton": "Thêm mới",
     "dialog": {
       "inputFieldLabel": "Tên của work space",
-      "title": "Hãy nhập tên work space của bạn !!!",
+      "title": "Hãy nhập thông tin work space của bạn !!!",
+      "workSpaceID": "Id của work space sẽ xóa",
+      "titleConfirmDelete": "Bạn chắc rằng sẽ xóa work space này chứ 😦",
+      "deleteWorkSpaceButton": "Xóa",
       "addButton": "Thêm",
       "closeButton": "Hủy"
     },
     "failedAddWorkSpace": "Thêm mới work space thất bại, hãy thử lại !!! 💪",
-    "successAddWorkSpace": "Chúc mừng bạn !!!, Thêm mới work space thành công 🎆"
+    "successAddWorkSpace": "Chúc mừng bạn !!!, Thêm mới work space thành công 🎆",
+    "failedDeleteWorkSpace": "Xóa work space thất bại !!! ✋",
+    "successDeleteWorkSpace": "Xóa work space thành công !!! 🧨"
   },
   "listFilter": {
     "all": "Tất cả",

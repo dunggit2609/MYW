@@ -11,7 +11,6 @@ function CheckBoxPickBackGround(props) {
   const { checked, handleChangeCheckedBox, name } = props;
   const handleChangeCheckBox = (event) => {
       if (!handleChangeCheckedBox) return;
-    //   console.log("check",{ [event.target.name]: event.target.checked })
     handleChangeCheckedBox({ [event.target.name]: event.target.checked });
   };
   return (

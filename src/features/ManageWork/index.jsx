@@ -11,7 +11,7 @@ function ManageWork(props) {
       <Switch>
         <Route path={match.path} component={ListWorkSpaces} exact />
         <Route
-          path={`${match.path}/:workSpaceID/tables`}
+          path={`${match.path}/:workSpaceID`}
           component={TableSpace}
           exact
         />

@@ -29,6 +29,9 @@ export const useHeaderDisplay = () => {
         .getElementsByClassName("App")[0]
         .addEventListener("scroll", handleScroll);
     }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleHamburgerClick = () => {

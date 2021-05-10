@@ -1,8 +1,8 @@
 import {
   ButtonBase,
-  FormControlLabel,
+
   Grid,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import { AddOutlined } from "@material-ui/icons";
 import DialogSlide from "components/DialogSlide";
@@ -10,26 +10,19 @@ import AddWorkSpaceForm from "features/ManageWork/components/AddWorkSpaceForm";
 import FilterArea from "features/ManageWork/components/filter";
 import WorkSpace from "features/ManageWork/components/work-space";
 import { useGetWorkSpacesData } from "hooks/useWorkSpacesData";
-import React, { useEffect, useState } from "react";
+import queryString from "query-string";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
-import queryString from "query-string";
 import "./styles.scss";
-import { listWorkSpaceBackGround } from "constant/config";
 ListWorkSpaces.propTypes = {};
 function ListWorkSpaces(props) {
   const {
     workSpaces,
     handleFilter,
     handleAddNewWorkSpaceClick,
+    handleDeleteWorkSpace,
   } = useGetWorkSpacesData();
-  const listLinkImage = listWorkSpaceBackGround;
-  useEffect(() => {
-    listLinkImage.map((value, index) => {
-      let a = <img src={value} />;
-      return a;
-    });
-  }, []);
   const location = useLocation();
   const [openDialog, setOpenDialog] = useState(false);
   const { t } = useTranslation();
@@ -60,7 +53,7 @@ function ListWorkSpaces(props) {
               <Grid container spacing={5}>
                 {workSpaces.map((value) => (
                   //chon key=idworkspace
-                  <WorkSpace key={value._id} data={value}></WorkSpace>
+                  <WorkSpace handleDeleteWorkSpace={handleDeleteWorkSpace} key={value._id} data={value}></WorkSpace>
                 ))}
                 {isHavePermissionAddNew && (
                   <>
@@ -79,6 +72,7 @@ function ListWorkSpaces(props) {
                         <Typography>{t("work-space.addNewButton")}</Typography>
                       </ButtonBase>
                       <DialogSlide
+                        displayLoadingForm={true}
                         component={
                           <AddWorkSpaceForm
                             handleAddNew={handleAddNewWorkSpaceClick}
@@ -128,6 +122,7 @@ function ListWorkSpaces(props) {
                           handleCloseDialog={handleDialogClose}
                         />
                       }
+                      displayLoadingForm={true}
                       openStatus={openDialog}
                       handleCloseDialog={handleDialogClose}
                       dialogTitle={t("work-space.dialog.title")}

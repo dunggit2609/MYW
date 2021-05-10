@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
+import { FormatStrikethroughTwoTone } from "@material-ui/icons";
 import InputField from "components/FormControl/InputField";
 import CustomizedRadios from "components/RadioButtonCustom";
 import { listWorkSpaceBackGround } from "constant/config";
@@ -27,10 +28,10 @@ function AddWorkSpaceForm(props) {
     },
     resolver: yupResolver(schema),
   });
+  form.setValue()
   const handleOnSubmit = (values) => {
     if (!handleAddNew) return;
     if (!handleCloseDialog) return;
-    console.log({ ...values, ...backGroundChecked });
     handleAddNew({ ...values, ...backGroundChecked });
     handleCloseDialog();
     form.reset();
@@ -38,28 +39,34 @@ function AddWorkSpaceForm(props) {
 
   return (
     <form onSubmit={form.handleSubmit(handleOnSubmit)}>
-      <InputField
-        name="workSpace"
-        label={t("work-space.dialog.inputFieldLabel")}
-        form={form}
-        disabled={false}
-      />
-
-      <CustomizedRadios
-        handleChangeRadioButtonBackgroundWorkSpace={
-          handleChangeRadioButtonBackgroundWorkSpace
-        }
-      />
-
-      <Button
-        color="secondary"
-        className="mainBox__submitButton"
-        variant="contained"
-        fullWidth
-        type="submit"
-      >
-        {t("work-space.dialog.addButton")}
-      </Button>
+      <Grid container sapcing={5}>
+        <Grid item xs={12}>
+          <InputField
+            name="workSpace"
+            label={t("work-space.dialog.inputFieldLabel")}
+            form={form}
+            disabled={false}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <CustomizedRadios
+            handleChangeRadioButtonBackgroundWorkSpace={
+              handleChangeRadioButtonBackgroundWorkSpace
+            }
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            color="secondary"
+            className="mainBox__submitButton"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            {t("work-space.dialog.addButton")}
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 }

@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 export const UseSpinnerLoading = () => {
   const dispatch = useDispatch();
   const handleDisplaySpinner = (isDisplay) => {
-    console.log("action", isDisplay);
     const action = isDisplay ? displaySpinner() : hideSpinner();
 
     dispatch(action);

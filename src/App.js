@@ -28,6 +28,12 @@ function App() {
   if (isLogin && location.pathname === _LIST_LINK.index) {
     history.push(_LIST_LINK.manageWork);
   }
+  const isDisplayFooter =
+    location.pathname === _LIST_LINK.index ||
+    location.pathname === _LIST_LINK.login ||
+    location.pathname === _LIST_LINK.register
+      ? true
+      : false;
   return (
     <div className="App">
       <Suspense
@@ -46,7 +52,7 @@ function App() {
           <PrivateRoute path={routerLink.manageWork} component={ManageWork} />
           <Route component={NotFound} />
         </Switch>
-        <Footer />
+        {isDisplayFooter && <Footer />}
         <LoadingSpinner />
       </Suspense>
       <HamburgerNav />

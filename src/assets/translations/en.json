@@ -67,12 +67,18 @@
     "addNewButton": "Add new",
     "dialog": {
       "inputFieldLabel": "Work space's name",
-      "title": "Please enter your work space's name !!!",
+      "workSpaceID": "Id of work space deleted",
+      "deleteWorkSpaceButton": "Delete",
+      "title": "Please enter your work space's infor !!!",
+      "titleConfirmDelete": "Are you sure to delete this work space 😦",
       "addButton": "Add",
       "closeButton": "Close"
+      
     },
     "failedAddWorkSpace": "Fail to add new work space, please try again !!! 💪",
-    "successAddWorkSpace": "Congratuations !!!, Success to Add New Work Space 🎆"
+    "successAddWorkSpace": "Congratuations !!!, Success to add New Work Space 🎆",
+    "failedDeleteWorkSpace": "Fail to delete this work space !!! ✋",
+    "successDeleteWorkSpace": "Success to delete New Work Space 🧨"
   },
   "listFilter": {
     "all": "All work spaces",

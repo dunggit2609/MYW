@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Controller } from "react-hook-form";
 
-
-//component này để nhập vào 1 field , 
+//component này để nhập vào 1 field ,
 //handle error => xem loginform hoặc registerform để biết cách sử dụng
 InputField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -15,12 +14,13 @@ InputField.propTypes = {
 };
 
 function InputField(props) {
-  const { form, name, label, disabled,placeholder } = props;
+  const { form, name, label, disabled, placeholder } = props;
   const { errors, formState } = form;
   const hasError = errors[name] && formState.touched;
-
+  
   return (
     <Controller
+      
       placeholder={placeholder}
       fullWidth
       control={form.control}

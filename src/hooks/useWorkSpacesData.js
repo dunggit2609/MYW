@@ -27,19 +27,42 @@ export const useGetWorkSpacesData = () => {
       search: queryString.stringify(queryParams),
     });
   };
-
+  const handleDeleteWorkSpace = async (id) => {
+    const newWorkSpace = workSpaces.filter((value) => value._id !== id);
+    try {
+      handleDisplaySpinner(true);
+      const success = await manageWorkApi.deleteWorkSpace(id);
+      const msg = t("work-space.successDeleteWorkSpace");
+      enqueueSnackbar(msg, { variant: "success" });
+      setworkSpaces(newWorkSpace);
+      handleDisplaySpinner(false);
+    } catch (error) {
+      handleDisplaySpinner(false);
+      const msg = t("work-space.failedDeleteWorkSpace");
+      enqueueSnackbar(msg, { variant: "error" });
+    }
+  };
   const handleAddNewWorkSpaceClick = async (value) => {
-    const newWorkSpace = { name: value.workSpace, image: value.image };
-    const newWorkSpaces = [...workSpaces, newWorkSpace];
     const param = { name: value.workSpace, image: value.image };
     try {
       handleDisplaySpinner(true);
       const success = await manageWorkApi.postNewWorkSpace(param);
       const msg = t("work-space.successAddWorkSpace");
       enqueueSnackbar(msg, { variant: "success" });
+      const successWorkSpace = success.board;
+      const newWorkSpace = {
+            name: successWorkSpace.name,
+            image: successWorkSpace.image,
+            _id: successWorkSpace._id,
+          }
+      const newWorkSpaces = [
+        ...workSpaces,
+        newWorkSpace
+      ];
       setworkSpaces(newWorkSpaces);
       handleDisplaySpinner(false);
     } catch (error) {
+      console.log(error);
       handleDisplaySpinner(false);
       const msg = t("work-space.failedAddWorkSpace");
       enqueueSnackbar(msg, { variant: "error" });
@@ -60,11 +83,15 @@ export const useGetWorkSpacesData = () => {
         handleDisplaySpinner(false);
       } catch (err) {
         handleDisplaySpinner(false);
-        console.log("workSpace", err);
       }
     }
 
     getAllWorkSpaces();
   }, [filteredState]);
-  return { workSpaces, handleFilter, handleAddNewWorkSpaceClick };
+  return {
+    workSpaces,
+    handleFilter,
+    handleAddNewWorkSpaceClick,
+    handleDeleteWorkSpace,
+  };
 };
