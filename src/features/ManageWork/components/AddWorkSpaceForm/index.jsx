@@ -28,7 +28,6 @@ function AddWorkSpaceForm(props) {
     },
     resolver: yupResolver(schema),
   });
-  form.setValue()
   const handleOnSubmit = (values) => {
     if (!handleAddNew) return;
     if (!handleCloseDialog) return;
